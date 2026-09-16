@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://communityfirstafc.com/sitemap.xml
