@@ -1,5 +1,5 @@
 // Builds the static communityfirstafc.com site (GitHub Pages) from the live HBJamaica site + the approved CRO changes (Keri, SMS 2026-09-16).
-// Usage: node build.mjs <outDir>. Copy follows the Messaging Blueprint v1 Claims Ledger (Approved list only).
+// Usage: node build.mjs <outDir>. Copy follows the Messaging Blueprint v2 Claims Ledger (Approved list only; Keri's 2026-09-21 edits applied 2026-10-05).
 import * as cheerio from "cheerio";
 import fs from "node:fs/promises";
 import path from "node:path";
@@ -78,7 +78,7 @@ const SECTION = `
   <div class="cf-grid">
     <div class="cf-stat"><b>Up to $1,700 a month</b><span>Tax-free stipend for the caregiver. The amount depends on the level of care the member needs.</span></div>
     <div class="cf-stat"><b>Paid on time</b><span>Paid the second Friday of every month. We have never missed a payment.</span></div>
-    <div class="cf-stat"><b>Nurse + case manager</b><span>They visit your home each month, together whenever possible. Evening and weekend visits available.</span></div>
+    <div class="cf-stat"><b>Nurse + case manager</b><span>They visit your home each month, together whenever possible. Flexible scheduling options.</span></div>
     <div class="cf-stat"><b>A real person answers</b><span>If you leave a message, you hear back within 24 hours. Staff who speak Spanish, Portuguese, and Haitian Creole.</span></div>
   </div>
   <div class="cf-proof"><span>CARF accredited</span><span>MassHealth-approved Adult Foster Care provider</span><span>Serving Massachusetts families since 2022</span><span>8 or 9 out of 10 families who join us stay with us</span></div>
@@ -97,13 +97,13 @@ const FAQ = [
   ["How long does this take?", "Usually one to three months from your first call to your first stipend check. The fastest we've seen is about a month. What decides the speed is almost always the doctor paperwork, and we'll tell you exactly what to get and when."],
   ["How much paperwork is there?", "Less than people fear. For you, the caregiver: a note from your doctor that you're in good health, and a negative TB test from within the past year. For the member: a physical from within the past year, a doctor visit within the last three months, and the doctor signs the program form. That's the list."],
   ["Do I have to see my doctor?", "Yes, once. If you've had a physical this year, you may already be done."],
-  ["How often do you visit?", "A nurse and a case manager come to your home each month. We try to send them together so you're not repeating yourself. Evening and weekend visits are available."],
+  ["How often do you visit?", "A nurse and a case manager come to your home each month. We try to send them together so you're not repeating yourself. Flexible scheduling options are available."],
   ["Do I have to quit my job?", "No. Many of our caregivers work. If the member isn't in a day program, we'll help you find one."],
   ["Can I leave them alone at all?", "Depends on the member. Some can be alone for up to a few hours a day. Your case manager will go over it with you."],
   ["Does the person I care for have to live with me?", "Yes."],
   ["Can I be paid to care for my husband or wife?", "Not under current Massachusetts rules. Legal guardians and parents of minor children also can't be the paid caregiver. If the rules change, we'll tell you."],
   ["What if they don't have MassHealth?", "Call us anyway. If the insurance isn't right, we'll point you to a broker who can help you figure out whether they can get it."],
-  ["What if I'm already with another agency?", "You can switch. Each agency has its own intake, and the state re-approves you, but we coordinate with your current agency so the change is as smooth as possible."],
+  ["What if I'm already with another agency?", "You can transfer. Each agency has its own intake, and the state re-approves you, but we coordinate with your current agency so the change is as smooth as possible."],
   ["Where do you serve?", "Worcester, Middlesex, Suffolk, Norfolk, Essex, Hampden, and Plymouth counties. Not the Cape or the islands."],
 ];
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -194,7 +194,7 @@ function transform(html, route) {
   if (route === "/") {
     const slides = [
       ["You're already caring for them. MassHealth's Adult Foster Care program may be able to pay you for it.", "If you're caring for a family member at home in Massachusetts, you may qualify for a tax-free stipend of up to $1,700 a month, plus a nurse and a case manager who actually show up. Community First handles the paperwork, pays on time, and speaks your language."],
-      ["Paid the second Friday of every month. We have never missed a payment.", "Already with another agency? You can switch, and we coordinate with your current agency so the change is as smooth as possible. Staff who speak Spanish, Portuguese, and Haitian Creole."],
+      ["Paid the second Friday of every month. We have never missed a payment.", "Already with another agency? You can transfer, and we coordinate with your current agency so the change is as smooth as possible. Staff who speak Spanish, Portuguese, and Haitian Creole."],
     ];
     $(".slider-item").each((i, s) => {
       const [h, p] = slides[Math.min(i, slides.length - 1)];
@@ -220,7 +220,9 @@ function transform(html, route) {
   }
   linkPhones($);
   $("body").append(`\n<div class="cf-bar"><a class="c" href="${TEL}">Call ${PHONE}</a><a class="t" href="${SMS}">Text us</a></div>\n<script>window.CF_RELAY=${JSON.stringify(RELAY)};</script>\n<script src="/assets/cf.js" defer></script>`);
-  return "<!DOCTYPE html>\n" + $.html().replace(/^<!DOCTYPE html>\s*/i, "");
+  return "<!DOCTYPE html>\n" + $.html().replace(/^<!DOCTYPE html>\s*/i, "")
+    // Blueprint v2 (Keri 2026-09-21): Arabic is through a translator, not on staff
+    .replace("fluent in Arabic, Portuguese, Spanish and other local dialects", "fluent in Spanish, Portuguese and Haitian Creole, with Arabic available through a translator");
 }
 
 const redirectPage = (to) => `<!DOCTYPE html><html><head><meta charset="utf-8"><title>Redirecting</title><link rel="canonical" href="${to.startsWith("http") ? to : "https://communityfirstafc.com" + to}"><meta name="robots" content="noindex"><meta http-equiv="refresh" content="0; url=${to}"><script>location.replace(${JSON.stringify(to)}+location.hash)</script></head><body><a href="${to}">Continue</a></body></html>`;
