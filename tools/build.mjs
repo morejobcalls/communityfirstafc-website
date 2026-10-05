@@ -126,7 +126,9 @@ async function get(url) {
 const localAsset = (u) => {
   try {
     const x = new URL(u, ORIGIN + "/");
-    if (x.hostname !== "communityfirstafc.com" || !x.pathname.startsWith("/public/")) return null;
+    // /public/ is the theme; /img/ and /images/ hold photos added through the CMS editor (often as relative or absolute URLs).
+    // All of them must be copied, or they 404 on the preview and break at go-live when the domain leaves the old host.
+    if (x.hostname !== "communityfirstafc.com" || !/^\/(public|img|images)\//.test(x.pathname)) return null;
     assets.add(x.pathname); return x.pathname;
   } catch { return null; }
 };
