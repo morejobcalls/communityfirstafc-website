@@ -39,7 +39,7 @@ const META = {
 
 const sel = (name, opts) => `<select name="${name}" required><option value="">Choose one</option>${opts.map(o => `<option>${o}</option>`).join("")}</select>`;
 const QUALIFY_FORM = `
-<form class="cf-q" data-cf-form="qualify">
+<form class="cf-q cf-q2" data-cf-form="qualify">
   <label>Who are you caring for?</label>${sel("caring_for", ["My parent", "My adult child", "My brother or sister", "Another relative", "A friend", "I want to become a caregiver"])}
   <label>Do you live together?</label>${sel("live_together", ["Yes", "Not yet, but we could", "No"])}
   <label>Do they have a diagnosed illness or disability, and need help with everyday things? (Bathing, dressing, meals, reminders, supervision.)</label>${sel("needs_help", ["Yes", "Not sure", "No"])}
@@ -71,30 +71,53 @@ const CAREERS_FORM = `
   <p class="fine">By submitting, you agree to be contacted by Community First Adult Foster Care about your application.</p>
 </form>`;
 
-const SECTION = `
-<div class="cf-band" id="stipend"><div class="in">
+const RECEIVE = `
+<div class="cf-band cf-receive" id="stipend"><div class="in">
+  <p class="cf-eyebrow">For family caregivers in Massachusetts</p>
   <h2 class="cf-h2">What caregivers receive</h2>
   <p class="cf-sub">Adult Foster Care is a MassHealth benefit. Community First handles the enrollment and stays with you after.</p>
   <div class="cf-grid">
-    <div class="cf-stat"><b>Up to $1,700 a month</b><span>Tax-free stipend for the caregiver. The amount depends on the level of care the member needs.</span></div>
-    <div class="cf-stat"><b>Paid on time</b><span>Paid the second Friday of every month. We have never missed a payment.</span></div>
-    <div class="cf-stat"><b>Nurse + case manager</b><span>They visit your home each month, together whenever possible. Flexible scheduling options.</span></div>
-    <div class="cf-stat"><b>A real person answers</b><span>If you leave a message, you hear back within 24 hours. Staff who speak Spanish, Portuguese, and Haitian Creole.</span></div>
+    <div class="cf-stat"><i class="fa fa-usd"></i><b>Up to $1,700 a month</b><span>Tax-free stipend for the caregiver. The amount depends on the level of care the member needs.</span></div>
+    <div class="cf-stat"><i class="fa fa-calendar-check-o"></i><b>Paid on time</b><span>Paid the second Friday of every month. We have never missed a payment.</span></div>
+    <div class="cf-stat"><i class="fa fa-heartbeat"></i><b>Nurse + case manager</b><span>They visit your home each month, together whenever possible. Flexible scheduling options.</span></div>
+    <div class="cf-stat"><i class="fa fa-phone"></i><b>A real person answers</b><span>If you leave a message, you hear back within 24 hours. Staff who speak Spanish, Portuguese, and Haitian Creole.</span></div>
   </div>
-  <div class="cf-proof"><span>CARF accredited</span><span>MassHealth-approved Adult Foster Care provider</span><span>Serving Massachusetts families since 2022</span><span>8 or 9 out of 10 families who join us stay with us</span></div>
-  <p class="cf-note">Serving Worcester, Middlesex, Suffolk, Norfolk, Essex, Hampden, and Plymouth counties. Stipend amounts depend on the level of care the member needs and are set by the MassHealth Adult Foster Care program. Caregivers must live with the member. Spouses, legal guardians, and parents of minors are not eligible to be paid caregivers under current program rules. Eligibility is determined during intake.</p>
+  <div class="cf-proof"><span><i class="fa fa-check-circle"></i> CARF accredited</span><span><i class="fa fa-check-circle"></i> MassHealth-approved Adult Foster Care provider</span><span><i class="fa fa-check-circle"></i> Serving Massachusetts families since 2022</span><span><i class="fa fa-check-circle"></i> 8 or 9 out of 10 families who join us stay with us</span></div>
 </div></div>
-<div class="cf-band" id="qualify" style="background:#fafafa"><div class="in">
+<div class="cf-band cf-how"><div class="in">
+  <h2 class="cf-h2">How it works</h2>
+  <p class="cf-sub">Three steps. We do the paperwork with you.</p>
+  <div class="cf-steps">
+    <div class="cf-step"><em>1</em><b>Answer a few quick questions</b><span>It takes about two minutes. Someone from Community First calls you within one business day.</span></div>
+    <div class="cf-step"><em>2</em><b>Talk with our intake team</b><span>A 15 to 30 minute phone call. We answer your questions and tell you exactly what paperwork to get.</span></div>
+    <div class="cf-step"><em>3</em><b>Your nurse and case manager start visiting</b><span>Once the doctor signs and the state approves, your stipend begins. It usually takes one to three months.</span></div>
+  </div>
+</div></div>`;
+const QUALIFY_BAND = `
+<div class="cf-band cf-qband" id="qualify"><div class="in">
   <h2 class="cf-h2" style="text-align:center">See if you qualify</h2>
   <p class="cf-sub" style="text-align:center">A few quick questions. Someone from Community First will call you within one business day.</p>
-  ${QUALIFY_FORM}
+  <div class="cf-qwrap">
+    ${QUALIFY_FORM}
+    <aside class="cf-aside">
+      <h3>What happens next</h3>
+      <ul>
+        <li><i class="fa fa-check"></i> A real person from our team calls you within one business day.</li>
+        <li><i class="fa fa-check"></i> No cost and no obligation to check.</li>
+        <li><i class="fa fa-check"></i> Not sure about the insurance? Ask anyway. We'll point you in the right direction.</li>
+        <li><i class="fa fa-check"></i> Already with another agency? You can transfer, and we coordinate it with them.</li>
+      </ul>
+      <p class="cf-aside-call">Rather talk now?<br><a href="${TEL}">Call ${PHONE}</a></p>
+      <p class="cf-note">Serving Worcester, Middlesex, Suffolk, Norfolk, Essex, Hampden, and Plymouth counties. Stipend amounts depend on the level of care the member needs and are set by the MassHealth Adult Foster Care program. Caregivers must live with the member. Spouses, legal guardians, and parents of minors are not eligible to be paid caregivers under current program rules. Eligibility is determined during intake.</p>
+    </aside>
+  </div>
 </div></div>`;
 
 const FAQ = [
   ["How much is the caregiver stipend?", "Up to $1,700 a month, tax-free. The amount depends on the level of care the member needs, and is set by the MassHealth Adult Foster Care program."],
   ["Is the stipend for me or for them?", "For you. It's the caregiver's money, with no strings on how you use it."],
   ["When is it paid?", "The second Friday of every month. We have never missed a payment."],
-  ["How long does this take?", "Usually one to three months from your first call to your first stipend check. The fastest we've seen is about a month. What decides the speed is almost always the doctor paperwork, and we'll tell you exactly what to get and when."],
+  ["How long does this take?", "Usually one to three months from your first call to your first stipend. The fastest we've seen is about a month. What decides the speed is almost always the doctor paperwork, and we'll tell you exactly what to get and when."],
   ["How much paperwork is there?", "Less than people fear. For you, the caregiver: a note from your doctor that you're in good health, and a negative TB test from within the past year. For the member: a physical from within the past year, a doctor visit within the last three months, and the doctor signs the program form. That's the list."],
   ["Do I have to see my doctor?", "Yes, once. If you've had a physical this year, you may already be done."],
   ["How often do you visit?", "A nurse and a case manager come to your home each month. We try to send them together so you're not repeating yourself. Flexible scheduling options are available."],
@@ -204,14 +227,42 @@ function transform(html, route) {
       t.find("h1").text(h); t.find("p").text(p);
       t.find("ul").attr("class", "cf-hero-cta").html(`<li><a class="p" href="#qualify">See if you qualify (2 min)</a></li><li><a class="s" href="${TEL}">Call ${PHONE}</a></li>`);
     });
-    const opt = $("h1").filter((_, h) => /You have Options/i.test($(h).text())).first();
-    let sec = opt; for (let i = 0; i < 8; i++) { const p = sec.parent(); if (!p.length || p.is("body")) break; sec = p; if (/area|section|pt_|pb_/.test(sec.attr("class") || "")) break; }
-    sec.before(SECTION);
+    // --- CRO facelift (2026-10-05): same sections, better order and packaging -------------
+    // Benefits + how-it-works directly under the hero; the qualify form right after.
+    $(".slider").first().after(RECEIVE + QUALIFY_BAND);
+    // About: the second column is an empty video slot, so let the copy use the full width.
+    const about = $(".home-about-area");
+    about.attr("id", "about");
+    if (!about.find(".d-video").text().trim() && !about.find(".d-video iframe, .d-video video, .d-video img").length) {
+      about.find(".d-video").closest("[class*='col-']").remove();
+      about.find(".home-about-content").closest("[class*='col-']").attr("class", "col-lg-12");
+    }
+    about.find("img").filter((_, e) => !$(e).attr("src") || $(e).attr("src") === "undefined").remove();
+    about.find("p").filter((_, e) => !$(e).text().trim() && !$(e).find("img").length).remove();
+    about.find(".progress-bar-section").filter((_, e) => !$(e).text().trim()).remove();
+    // "We CARE": four tall stacked photos become a four-card row.
+    const care = about.find("a.b-link-stroke");
+    if (care.length) {
+      const grid = $('<div class="cf-care"></div>');
+      care.first().before(grid);
+      care.each((_, a) => {
+        const img = $(a).find("img").first(), h = $(a).find("h2").first().text().trim(), p = $(a).find("p").first().text().trim();
+        grid.append(`<div class="cf-care-card"><img src="${img.attr("src")}" alt="${esc(h)}" loading="lazy"><div class="t"><h3>${esc(h)}</h3><p>${esc(p)}</p></div></div>`);
+        $(a).remove();
+      });
+      grid.closest(".container").attr("class", "cf-care-wrap");
+    }
+    // Service cards said "All Counties in MA"; the Blueprint lists seven.
+    $("*").contents().filter((_, n) => n.type === "text" && /All Counties in MA/i.test(n.data)).each((_, n) => { n.data = n.data.replace(/Service Area\s*[–-]\s*All Counties in MA/i, "Serving 7 Massachusetts counties"); });
+    // Closing CTA before the footer points at the form.
+    $(".call-us .button a").attr("href", "#qualify");
   }
+  // Header on every page: a clear button in the nav.
+  $(".menu-section-2 nav > ul").append(`<li class="cf-nav-cta"><a href="${route === "/" ? "#qualify" : "/contact/"}">See if you qualify</a></li>`);
   if (route === "/faq/") { $("#menu").html(FAQ_HTML); $("head").append(`<script type="application/ld+json">${FAQ_JSONLD}</script>`); }
   if (route === "/contact/") {
     $(".form-area .headline h1").text("See if you qualify").attr("id", "qualify");
-    $(".form-area form").replaceWith(QUALIFY_FORM);
+    $(".form-area form").replaceWith(`<div class="cf-qwrap">${QUALIFY_FORM}<aside class="cf-aside"><h3>What happens next</h3><ul><li><i class="fa fa-check"></i> A real person from our team calls you within one business day.</li><li><i class="fa fa-check"></i> No cost and no obligation to check.</li><li><i class="fa fa-check"></i> Not sure about the insurance? Ask anyway.</li></ul><p class="cf-aside-call">Rather talk now?<br><a href="${TEL}">Call ${PHONE}</a></p></aside></div>`);
     $(".map-area").remove();
   }
   if (route === "/careers/") {
@@ -257,4 +308,6 @@ const SITEMAP = PAGES.map(p => p[1]).concat("/careers/");
 await write("sitemap.xml", `<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n${SITEMAP.map(p => `<url><loc>https://communityfirstafc.com${p}</loc></url>`).join("\n")}\n</urlset>\n`);
 await write("robots.txt", "User-agent: *\nAllow: /\nSitemap: https://communityfirstafc.com/sitemap.xml\n");
 await write(".nojekyll", "");
+// The old site links a favicon that was never uploaded (404). Fall back to the logo so the tab icon isn't broken.
+try { await fs.access(path.join(OUT, "public/uploads/favicon.png")); } catch { try { await fs.copyFile(path.join(OUT, "public/uploads/logo.png"), path.join(OUT, "public/uploads/favicon.png")); } catch {} }
 console.log("pages", Object.keys(origin).length, "assets", done.size);
