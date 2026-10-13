@@ -105,7 +105,6 @@ const QUALIFY_BAND = `
         <li><i class="fa fa-check"></i> A real person from our team calls you within one business day.</li>
         <li><i class="fa fa-check"></i> No cost and no obligation to check.</li>
         <li><i class="fa fa-check"></i> Not sure about the insurance? Ask anyway. We'll point you in the right direction.</li>
-        <li><i class="fa fa-check"></i> Already with another agency? You can transfer, and we coordinate it with them.</li>
       </ul>
       <p class="cf-aside-call">Rather talk now?<br><a href="${TEL}">Call ${PHONE}</a></p>
       <p class="cf-note">Serving Worcester, Middlesex, Suffolk, Norfolk, Essex, Hampden, and Plymouth counties. Stipend amounts depend on the level of care the member needs and are set by the MassHealth Adult Foster Care program. Caregivers must live with the member. Spouses, legal guardians, and parents of minors are not eligible to be paid caregivers under current program rules. Eligibility is determined during intake.</p>
@@ -126,7 +125,6 @@ const FAQ = [
   ["Does the person I care for have to live with me?", "Yes."],
   ["Can I be paid to care for my husband or wife?", "Not under current Massachusetts rules. Legal guardians and parents of minor children also can't be the paid caregiver. If the rules change, we'll tell you."],
   ["What if they don't have MassHealth?", "Call us anyway. If the insurance isn't right, we'll point you to a broker who can help you figure out whether they can get it."],
-  ["What if I'm already with another agency?", "You can transfer. Each agency has its own intake, and the state re-approves you, but we coordinate with your current agency so the change is as smooth as possible."],
   ["Where do you serve?", "Worcester, Middlesex, Suffolk, Norfolk, Essex, Hampden, and Plymouth counties. Not the Cape or the islands."],
 ];
 const esc = s => String(s).replace(/[&<>"]/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
@@ -219,7 +217,7 @@ function transform(html, route) {
   if (route === "/") {
     const slides = [
       ["You're already caring for them. MassHealth's Adult Foster Care program may be able to pay you for it.", "If you're caring for a family member at home in Massachusetts, you may qualify for a tax-free stipend of up to $1,700 a month, plus a nurse and a case manager who actually show up. Community First handles the paperwork, pays on time, and speaks your language."],
-      ["Paid the second Friday of every month. We have never missed a payment.", "Already with another agency? You can transfer, and we coordinate with your current agency so the change is as smooth as possible. Staff who speak Spanish, Portuguese, and Haitian Creole."],
+      ["Paid the second Friday of every month. We have never missed a payment.", "Your stipend arrives on time, every month. Staff who speak Spanish, Portuguese, and Haitian Creole."],
     ];
     $(".slider-item").each((i, s) => {
       const [h, p] = slides[Math.min(i, slides.length - 1)];
